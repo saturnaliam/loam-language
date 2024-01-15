@@ -8,15 +8,10 @@
 bool Loam::hadError = false;
 std::vector<Error> Loam::errors = {};
 
-int main(void) {
-  // TODO: clean up file reading code
-  std::ifstream file("../test.lm");
+std::string loadFile(std::string filename);
 
-  std::string contents, line;
-
-  while (std::getline(file, line)) {
-    contents += line + '\n';
-  }
+int main(int argc, char** argv) {
+  std::string contents = loadFile(argv[1]);
 
   Scanner scanner(contents);
   std::vector<Token> tokens = scanner.scanTokens();
@@ -25,4 +20,21 @@ int main(void) {
   for (auto token : tokens) {
     std::cout << token.toString() << "\n";
   }
+}
+
+/**
+ * @brief Loads a file into a string.
+ * @param filename The file to load.
+ * @return The contents of the file.
+ */
+std::string loadFile(std::string filename) {
+  std::ifstream file(filename);
+
+  std::string contents, line;
+
+  while (std::getline(file, line)) {
+    contents += line + '\n';
+  }
+
+  return contents;
 }

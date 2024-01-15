@@ -41,6 +41,9 @@ enum TokenType {
   GET,
   STDOUT,
   STDIN,
+  IF,
+  OR,
+  AND,
 
   _EOF,
 };
@@ -60,6 +63,9 @@ static std::unordered_map<std::string, TokenType> keywords = {
   { "get", GET },
   { "stdout", STDOUT },
   { "stdin", STDIN },
+  { "or", OR },
+  { "and", AND },
+  { "if", IF },
 };
 
 class Token {

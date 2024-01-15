@@ -47,6 +47,9 @@ std::string typeToString(TokenType type) {
     PROCESS_VAL(GET);
     PROCESS_VAL(STDOUT);
     PROCESS_VAL(STDIN);
+    PROCESS_VAL(IF);
+    PROCESS_VAL(OR);
+    PROCESS_VAL(AND);
     PROCESS_VAL(_EOF);
   }
 }
