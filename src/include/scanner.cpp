@@ -1,9 +1,11 @@
 #include "scanner.hpp"
+#include "Expr.hpp"
 #include <string>
 
 Scanner::Scanner(std::string source) { this->source = source; }
 
 std::vector<Token> Scanner::scanTokens() {
+  Expr luciua;
   while (!isAtEnd()) {
     start = current;
     scanToken();

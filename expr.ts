@@ -1,0 +1,50 @@
+if (Deno.args.length != 1) {
+  console.error("Usage: expr.ts <output directory>");
+  Deno.exit(64);
+}
+
+// const encoder = new TextEncoder();
+// const data = encoder.encode(Deno.args[0]);
+// Deno.writeFile("h.txt", data);
+
+const outputDir = Deno.args[0];
+defineAst(outputDir, "Expr", [
+  "Binary   : Expr left, Token _operator, Expr right",
+  "Grouping : Expr expression",
+  "Literal  : std::string value",
+  "Unary    : Token _operator, Expr right"
+])
+
+function defineAst(outputDir: string, baseName: string, types: string[]) {
+  const _path = outputDir + "/" + baseName + ".cpp";
+
+  console.log("#include \"token.hpp\"\n");
+  console.log(`class ${baseName} {};\n`);
+
+  types.forEach((element) => {
+    const className = element.split(":")[0].trim();
+    const fields = element.split(":")[1].trim();
+    defineType(baseName, className, fields);
+  });
+
+}
+
+function defineType(baseName: string, className: string, fieldList: string) {
+  console.log(`class ${className} : protected ${baseName} {`);
+
+  console.log(`  ${className}(${fieldList}) {`);
+
+  const fields = fieldList.split(", ");
+  fields.forEach((element) => {
+    const name = element.split(" ")[1];
+    console.log(`    this->${name} = ${name};`);
+  });
+
+  console.log("  }\n");
+
+  fields.forEach((element) => {
+    console.log(`  ${element};`);
+  });
+
+  console.log("};\n");
+}
