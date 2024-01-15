@@ -4,10 +4,12 @@
 #include <iostream>
 #include <fstream>
 
+// Initialization of static variables
 bool Loam::hadError = false;
 std::vector<Error> Loam::errors = {};
 
 int main(void) {
+  // TODO: clean up file reading code
   std::ifstream file("../test.lm");
 
   std::string contents, line;

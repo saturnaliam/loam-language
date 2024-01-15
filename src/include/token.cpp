@@ -71,6 +71,10 @@ Token::Token(TokenType type, std::string lexeme, int line,
   this->literal = literal;
 }
 
+/**
+ * @brief Stringifies a token.
+ * @return The formatted token.
+ */
 std::string Token::toString() {
   return type + std::string(" ") + ( literal == "" ? lexeme : literal);
 }

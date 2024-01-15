@@ -13,17 +13,19 @@ private:
   std::string source;
   std::vector<Token> tokens;
 
+  bool isAtEnd();
+
   void scanToken();
-  char advance();
-  char peek();
   void addToken(TokenType type, std::string literal = "");
+
   void string();
   void number();
-  char peekNext();
   bool identifier();
 
-  bool isAtEnd();
   bool match(char expected);
+  char advance();
+  char peek();
+  char peekNext();
 
 public:
   Scanner(std::string source);

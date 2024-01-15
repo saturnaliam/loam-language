@@ -3,18 +3,27 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief Different types that errors can take.
+ */
 enum ErrorType {
   UNEXPECTED_SYMBOL,
   UNTERMINATED_STRING,
 };
 
+/**
+ * @brief Any errors that was raised during execution.
+ */
 struct Error {
   int index;
   int line;
   ErrorType errorType;
-  std::string problem;
+  std::string problem; // The character that caused the issue (only for UNEXPECTED_SYMBOL)
 };
 
+/**
+ * @brief A collection of functions needed for the language, that don't really fit anywhere else.
+ */
 class Loam {
 private:
   /**
@@ -28,6 +37,7 @@ private:
       originalError.line == newError.line &&
       originalError.errorType == newError.errorType);
   }
+
 public:
   static bool hadError;
   static std::vector<Error> errors;
