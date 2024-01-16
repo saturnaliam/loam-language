@@ -4,6 +4,8 @@
 #include "include/parser.hpp"
 #include <iostream>
 #include <fstream>
+#include <typeinfo>
+#define D(p) #p
 
 // Initialization of static variables
 bool Loam::hadError = false;
@@ -18,9 +20,6 @@ int main(int argc, char** argv) {
   std::vector<Token> tokens = scanner.scanTokens();
 
   if (Loam::hadError) Loam::reportError();
-  // for (auto token : tokens) {
-  //   std::cout << token.toString() << "\n";
-  // }
 
   Parser parser(tokens);
   std::unique_ptr<Expr> expression = parser.parse();
