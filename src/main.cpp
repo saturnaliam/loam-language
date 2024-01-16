@@ -1,6 +1,7 @@
 #include "include/scanner.hpp"
 #include "include/token.hpp"
 #include "include/Loam.hpp"
+#include "include/parser.hpp"
 #include <iostream>
 #include <fstream>
 
@@ -17,9 +18,12 @@ int main(int argc, char** argv) {
   std::vector<Token> tokens = scanner.scanTokens();
 
   if (Loam::hadError) Loam::reportError();
-  for (auto token : tokens) {
-    std::cout << token.toString() << "\n";
-  }
+  // for (auto token : tokens) {
+  //   std::cout << token.toString() << "\n";
+  // }
+
+  Parser parser(tokens);
+  std::unique_ptr<Expr> expression = parser.parse();
 }
 
 /**

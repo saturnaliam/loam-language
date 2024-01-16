@@ -76,7 +76,7 @@ public:
   std::string literal;
 
   Token(TokenType type, std::string lexeme, int line, std::string literal = "");
-  Token();
+  Token() {}
 
   std::string toString();
 };

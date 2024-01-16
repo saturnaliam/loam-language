@@ -6,7 +6,7 @@ defineAst("Expr", [
 ])
 
 function defineAst(baseName: string, types: string[]) {
-  console.log("#include \"token.hpp\"\n");
+  console.log("#include \"token.hpp\"\n#include <string>\n");
   console.log(`class ${baseName} {};\n`);
 
   types.forEach((element) => {
