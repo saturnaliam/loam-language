@@ -89,7 +89,7 @@ char Scanner::advance() {
  * @param type The ``TokenType`` to add.
  * @param literal The literal value (optional)
  */
-void Scanner::addToken(TokenType type, std::string literal) {
+void Scanner::addToken(TokenType type, std::variant<std::string, int> literal) {
   std::string lexeme = source.substr(start, current - start);
 
   tokens.push_back(Token(type, lexeme, line, literal));
@@ -151,7 +151,7 @@ void Scanner::number() {
   }
 
   std::string value = source.substr(start, current - start);
-  addToken(NUMBER, value);
+  addToken(NUMBER, stoi(value));
 }
 
 /**
@@ -168,9 +168,16 @@ char Scanner::peekNext() {
  * @return True if a keyword, false if not.
  */
 bool Scanner::identifier() {
-  while (isalpha(peek())) advance();
+  int currentLocal = current;
+  while (currentLocal < source.length() ) {
+    if (isalpha(source.at(current))) {
+      currentLocal++;
+    } else {
+      break;
+    }
+  }
 
-  std::string value = source.substr(start, current - start);
+  std::string value = source.substr(start, currentLocal - start);
 
   if (keywords.find(value) == keywords.end()) {
     return false;

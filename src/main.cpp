@@ -21,6 +21,10 @@ int main(int argc, char** argv) {
 
   if (Loam::hadError) Loam::reportError();
 
+  for (Token token : tokens) {
+    std::cout << token.toString() << "\n";
+  }
+
   Parser parser(tokens);
   std::unique_ptr<Expr> expression = parser.parse();
 }

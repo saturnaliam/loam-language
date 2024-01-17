@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <variant>
 
 enum TokenType {
   // single character fellows
@@ -73,9 +74,9 @@ public:
   TokenType type;
   std::string lexeme;
   int line;
-  std::string literal;
+  std::variant<std::string, int> literal;
 
-  Token(TokenType type, std::string lexeme, int line, std::string literal = "");
+  Token(TokenType type, std::string lexeme, int line, std::variant<std::string, int> literal = "");
   Token() {}
 
   std::string toString();

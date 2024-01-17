@@ -66,6 +66,12 @@ public:
     hadError = true;
   }
 
+  [[noreturn]] static void panic(int line, std::string message) {
+    std::string reportedError = "[line " + std::to_string(line) + "] Error: " + message + ".";
+    std::cerr << reportedError;
+    exit(65);
+  }
+
   /**
    * @brief Prints out all collected errors from the program.
    */

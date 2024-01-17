@@ -2,6 +2,7 @@
 #include "token.hpp"
 #include <string>
 #include <memory>
+#include <variant>
 #include <iostream>
 
 enum ExpressionType {
@@ -47,12 +48,12 @@ public:
 
 class Literal : public Expr {
 public:
-  Literal(std::string value) {
+  Literal(std::variant<std::string, int> value) {
     this->expressionType = LITERAL;
     this->value = value;
   }
 
-  std::string value;
+  std::variant<std::string, int> value;
 };
 
 class Unary : public Expr {

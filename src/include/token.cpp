@@ -67,7 +67,7 @@ std::string operator+(TokenType lhs, std::string rhs) {
  * @param literal The literal value (optional).
  */
 Token::Token(TokenType type, std::string lexeme, int line,
-             std::string literal) {
+             std::variant<std::string, int> literal) {
   this->type = type;
   this->lexeme = lexeme;
   this->line = line;
@@ -79,5 +79,9 @@ Token::Token(TokenType type, std::string lexeme, int line,
  * @return The formatted token.
  */
 std::string Token::toString() {
-  return type + std::string(" ") + ( literal == "" ? lexeme : literal);
+  try {
+    return type + std::string(" ") + std::to_string(std::get<int>(literal));
+  } catch(const std::bad_variant_access &ex) {
+    return type + std::string(" ") + ( std::get<std::string>(literal) == "" ? lexeme : std::get<std::string>(literal));
+  }
 }

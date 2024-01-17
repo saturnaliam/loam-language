@@ -79,7 +79,14 @@ std::unique_ptr<Expr> Parser::primary() {
     return literal;
   }
 
-  return nullptr;
+  if (match({ L_PAREN })) {
+    std::unique_ptr<Expr> expr = expression();
+    consume(R_PAREN, "Expect ')' after expression.");
+    std::unique_ptr<Grouping> grouping(new Grouping(std::move(expr)));
+    return grouping;
+  }
+
+  Loam::panic(peek().line, "Expression expected");
 }
 
 std::unique_ptr<Expr> Parser::parse() {
@@ -117,4 +124,10 @@ Token Parser::peek() {
 
 Token Parser::previous() {
   return tokens[current - 1];
+}
+
+Token Parser::consume(TokenType type, std::string message) {
+  if (check(type)) return advance();
+
+  Loam::panic(peek().line, message);
 }

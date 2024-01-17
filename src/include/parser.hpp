@@ -1,5 +1,6 @@
 #pragma once
 #include "token.hpp"
+#include "Loam.hpp"
 #include "Expr.hpp"
 #include <memory>
 #include <vector>
@@ -15,6 +16,7 @@ private:
   Token advance();
   bool isAtEnd();
   Token peek();
+  Token consume(TokenType type, std::string message);
   Token previous();
   std::unique_ptr<Expr> expression();
   std::unique_ptr<Expr> equality();
