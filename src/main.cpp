@@ -1,7 +1,7 @@
 #include "include/scanner.hpp"
 #include "include/token.hpp"
+#include "include/interpret.hpp"
 #include "include/Loam.hpp"
-#include "include/parser.hpp"
 #include <iostream>
 #include <fstream>
 #include <typeinfo>
@@ -21,12 +21,15 @@ int main(int argc, char** argv) {
 
   if (Loam::hadError) Loam::reportError();
 
-  for (Token token : tokens) {
-    std::cout << token.toString() << "\n";
-  }
+  // for (Token token : tokens) {
+  //   std::cout << token.toString() << "\n";
+  // }
 
-  Parser parser(tokens);
-  std::unique_ptr<Expr> expression = parser.parse();
+  // Parser parser(tokens);
+  // std::unique_ptr<Expr> expression = parser.parse();
+
+  Interpreter i(tokens);
+  i.interpret();
 }
 
 /**

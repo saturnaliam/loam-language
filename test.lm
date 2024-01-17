@@ -1,1 +1,7 @@
-) 3
+push "Hello, world!"
+pop
+dump popreg
+push "Hello, world!"
+pop
+please put onto stdout
+please get from stdin

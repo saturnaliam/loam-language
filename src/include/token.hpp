@@ -5,27 +5,27 @@
 
 enum TokenType {
   // single character fellows
-  L_PAREN,
-  R_PAREN,
-  L_BRACE,
-  R_BRACE,
-  MINUS,
-  PLUS,
-  ASTERISK,
+  //L_PAREN,
+  //R_PAREN,
+  //L_BRACE,
+  //R_BRACE,
+  //MINUS,
+  //PLUS,
+  //ASTERISK,
 
   // one/two character fellows
   SLASH,
-  BANG,
-  BANG_EQUAL,
-  EQUAL_EQUAL,
-  GREATER,
-  GREATER_EQUAL,
-  LESS,
-  LESS_EQUAL,
+  //BANG,
+  //BANG_EQUAL,
+  //EQUAL_EQUAL,
+  //GREATER,
+  //GREATER_EQUAL,
+  //LESS,
+  //LESS_EQUAL,
 
   // literals
   STRING,
-  NUMBER,
+  //NUMBER,
 
   // keywords!!
   PUSH,
@@ -42,9 +42,9 @@ enum TokenType {
   GET,
   STDOUT,
   STDIN,
-  IF,
-  OR,
-  AND,
+  //IF,
+  //OR,
+  //AND,
 
   _EOF,
 };
@@ -64,9 +64,9 @@ static std::unordered_map<std::string, TokenType> keywords = {
   { "get", GET },
   { "stdout", STDOUT },
   { "stdin", STDIN },
-  { "or", OR },
-  { "and", AND },
-  { "if", IF },
+  //{ "or", OR },
+  //{ "and", AND },
+  //{ "if", IF },
 };
 
 class Token {
@@ -74,9 +74,9 @@ public:
   TokenType type;
   std::string lexeme;
   int line;
-  std::variant<std::string, int> literal;
+  std::string literal;
 
-  Token(TokenType type, std::string lexeme, int line, std::variant<std::string, int> literal = "");
+  Token(TokenType type, std::string lexeme, int line, std::string literal = "");
   Token() {}
 
   std::string toString();

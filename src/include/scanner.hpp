@@ -16,7 +16,7 @@ private:
   bool isAtEnd();
 
   void scanToken();
-  void addToken(TokenType type, std::variant<std::string, int> literal = "");
+  void addToken(TokenType type, std::string literal = "");
 
   void string();
   void number();

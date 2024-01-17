@@ -16,23 +16,9 @@
  */
 std::string typeToString(TokenType type) {
   switch (type) {
-    PROCESS_VAL(L_PAREN);
-    PROCESS_VAL(R_PAREN);
-    PROCESS_VAL(L_BRACE);
-    PROCESS_VAL(R_BRACE);
-    PROCESS_VAL(MINUS);
-    PROCESS_VAL(PLUS);
     PROCESS_VAL(SLASH);
-    PROCESS_VAL(ASTERISK);
-    PROCESS_VAL(BANG);
-    PROCESS_VAL(BANG_EQUAL);
-    PROCESS_VAL(EQUAL_EQUAL);
-    PROCESS_VAL(GREATER);
-    PROCESS_VAL(GREATER_EQUAL);
-    PROCESS_VAL(LESS);
-    PROCESS_VAL(LESS_EQUAL);
     PROCESS_VAL(STRING);
-    PROCESS_VAL(NUMBER);
+    //PROCESS_VAL(NUMBER);
     PROCESS_VAL(PUSH);
     PROCESS_VAL(POP);
     PROCESS_VAL(EJECT);
@@ -47,9 +33,6 @@ std::string typeToString(TokenType type) {
     PROCESS_VAL(GET);
     PROCESS_VAL(STDOUT);
     PROCESS_VAL(STDIN);
-    PROCESS_VAL(IF);
-    PROCESS_VAL(OR);
-    PROCESS_VAL(AND);
     PROCESS_VAL(_EOF);
   }
 }
@@ -67,7 +50,7 @@ std::string operator+(TokenType lhs, std::string rhs) {
  * @param literal The literal value (optional).
  */
 Token::Token(TokenType type, std::string lexeme, int line,
-             std::variant<std::string, int> literal) {
+             std::string literal) {
   this->type = type;
   this->lexeme = lexeme;
   this->line = line;
@@ -79,9 +62,5 @@ Token::Token(TokenType type, std::string lexeme, int line,
  * @return The formatted token.
  */
 std::string Token::toString() {
-  try {
-    return type + std::string(" ") + std::to_string(std::get<int>(literal));
-  } catch(const std::bad_variant_access &ex) {
-    return type + std::string(" ") + ( std::get<std::string>(literal) == "" ? lexeme : std::get<std::string>(literal));
-  }
+  return type + std::string(" ") + ( literal == "" ? lexeme : literal);
 }

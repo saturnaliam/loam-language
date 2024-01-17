@@ -27,22 +27,22 @@ void Scanner::scanToken() {
   char c = advance();
 
   switch (c) {
-    case '(': addToken(L_PAREN); break;
-    case ')': addToken(R_PAREN); break;
-    case '{': addToken(L_BRACE); break;
-    case '}': addToken(R_BRACE); break;
-    case '-': addToken(MINUS); break;
-    case '+': addToken(PLUS); break;
-    case '*': addToken(ASTERISK); break;
-    case '!':
-      addToken(match('=') ? BANG_EQUAL : BANG);
-      break;
-    case '<':
-      addToken(match('=') ? LESS_EQUAL : LESS);
-      break;
-    case '>':
-      addToken(match('=') ? GREATER_EQUAL : GREATER);
-      break;
+    // case '(': addToken(L_PAREN); break;
+    // case ')': addToken(R_PAREN); break;
+    // case '{': addToken(L_BRACE); break;
+    // case '}': addToken(R_BRACE); break;
+    // case '-': addToken(MINUS); break;
+    // case '+': addToken(PLUS); break;
+    // case '*': addToken(ASTERISK); break;
+    // case '!':
+    //   addToken(match('=') ? BANG_EQUAL : BANG);
+    //   break;
+    // case '<':
+    //   addToken(match('=') ? LESS_EQUAL : LESS);
+    //   break;
+    // case '>':
+    //   addToken(match('=') ? GREATER_EQUAL : GREATER);
+    //   break;
 
     case '/':
       if (match('/')) {
@@ -70,7 +70,7 @@ void Scanner::scanToken() {
         number();
       } else {
         if (identifier()) break;
-        Loam::markError(UNEXPECTED_SYMBOL, current, line, std::string(1, c));
+        Loam::markError(UNEXPECTED_SYMBOL, current, line, source.substr(start, current - start));
       }
       break;
   }
@@ -89,7 +89,7 @@ char Scanner::advance() {
  * @param type The ``TokenType`` to add.
  * @param literal The literal value (optional)
  */
-void Scanner::addToken(TokenType type, std::variant<std::string, int> literal) {
+void Scanner::addToken(TokenType type, std::string literal) {
   std::string lexeme = source.substr(start, current - start);
 
   tokens.push_back(Token(type, lexeme, line, literal));
@@ -151,7 +151,7 @@ void Scanner::number() {
   }
 
   std::string value = source.substr(start, current - start);
-  addToken(NUMBER, stoi(value));
+  addToken(STRING, value);
 }
 
 /**
@@ -168,16 +168,9 @@ char Scanner::peekNext() {
  * @return True if a keyword, false if not.
  */
 bool Scanner::identifier() {
-  int currentLocal = current;
-  while (currentLocal < source.length() ) {
-    if (isalpha(source.at(current))) {
-      currentLocal++;
-    } else {
-      break;
-    }
-  }
+  while (isalpha(peek())) advance();
 
-  std::string value = source.substr(start, currentLocal - start);
+  std::string value = source.substr(start, current - start);
 
   if (keywords.find(value) == keywords.end()) {
     return false;
